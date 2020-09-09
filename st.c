@@ -1986,6 +1986,13 @@ toggleprinter(const Arg *arg)
 }
 
 void
+adjustAlpha(const Arg *arg){
+    alpha += arg->f;
+    xloadcols();
+    redraw();
+}
+
+void
 printscreen(const Arg *arg)
 {
 	tdump();

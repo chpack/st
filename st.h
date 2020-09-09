@@ -88,6 +88,8 @@ void printsel(const Arg *);
 void sendbreak(const Arg *);
 void toggleprinter(const Arg *);
 
+void adjustAlpha(const Arg *arg);
+
 int tattrset(int);
 void tnew(int, int);
 void tresize(int, int);
