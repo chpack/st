@@ -1481,7 +1481,12 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 	XftDrawSetClipRectangles(xw.draw, winx, winy, &r, 1);
 
 	/* Render the glyphs. */
-	XftDrawGlyphFontSpec(xw.draw, fg, specs, len);
+	/* XftDrawGlyphFontSpec(xw.draw, fg, specs, len);*/
+    FcBool b  = FcFalse;
+    FcPatternGetBool(specs->font->pattern,FC_COLOR,0,&b);
+    if(!b){
+        XftDrawGlyphFontSpec(xw.draw,fg,specs,len);
+    }
 
 	/* Render underline and strikethrough. */
 	if (base.mode & ATTR_UNDERLINE) {
@@ -1622,6 +1627,8 @@ xsettitle(char *p)
 int
 xstartdraw(void)
 {
+	if (IS_SET(MODE_VISIBLE))
+		XCopyArea(xw.dpy, xw.win, xw.buf, dc.gc, 0, 0, win.w, win.h, 0, 0);
 	return IS_SET(MODE_VISIBLE);
 }
 
